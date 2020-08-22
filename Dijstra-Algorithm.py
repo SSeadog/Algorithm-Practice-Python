@@ -1,51 +1,6 @@
 import heapq
 
-number = 6
-INF = 10000
-
-a = [[0, 2, 5, 1, INF, INF],
-     [2, 0, 3, 2, INF, INF],
-     [5, 3, 0, 3, 1, 5],
-     [1, 2, 3, 0, 1, INF],
-     [INF, INF, 5, 1, 0, 2],
-     [INF, INF, 5, INF, 2, 0]]
-
-visited = [False] * 6
-distance = []
-
-# 여기서 최소 노드 구하는 로직이 문제가 있는 듯
-
-
-def getShortIndex():
-    heap = []
-    for n in range(number):
-        if visited[n] == False:
-            heapq.heappush(heap, distance[n])
-    short_distance = heapq.heappop(heap)
-    for n in range(number):
-        if distance[n] == short_distance and visited[n] == False:
-            return n
-
-
-def updateShort(short_index):
-    visited[short_index] = True
-    for n in range(number):
-        if distance[short_index] + a[short_index][n] < distance[n]:
-            distance[n] = distance[short_index] + a[short_index][n]
-
-
-def dijstra(start):
-    visited[start] = True
-    for n in range(number):
-        distance.append(a[start][n])
-    for n in range(3):
-        short_index = getShortIndex()
-        updateShort(short_index)
-
-
-dijstra(0)
-print(distance)
-
+# 다음에 꼭 heap을 이용해 다익스트라 구현하기 해야함
 
 # number = 6
 # INF = 10000
