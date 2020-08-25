@@ -2,6 +2,8 @@
 
 # 재귀 함수로 만든 dfs
 def dfs(graph, node):
+    # 호출될 때 그 노드를 입력 -> 노드가 스택에 들어가는 순서 출력
+    print(node, end=" ")
     # 받은 node는 방문 표시
     visited[node] = True
     # 인접 노드들을 하나씩 방문한 노드인지 확인
