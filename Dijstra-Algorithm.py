@@ -36,12 +36,10 @@ def update_short(index):  # 방문한 index를 거쳐가는 distance와 현재 �
 def dijstra(start):  # 다익스트라 알고리즘 구현
     # 힙으로 이용할 리스트 선언
     q = []
-    # current에 start를 넣음
-    current = start
     # 시작위치로 가는 거리 비용은 0이므로 0 넣음
     distance[start] = 0
     # 힙에 비용, 위치 넣음
-    heapq.heappush(q, (0, current))
+    heapq.heappush(q, (0, start))
     # 힙이 빌 때까지 반복
     while q:
         # 힙에서 거리가 젤 짧은 요소를 꺼냄, n은 노드 번호만 받음
@@ -51,11 +49,10 @@ def dijstra(start):  # 다익스트라 알고리즘 구현
             continue
         # 방문하지 않은 노드라면 방문 표시
         visited[n] = True
-        # n을 현재 위치로 생각하고 거리 갱신
-        current = n
-        update_short(current)
+        # 현재 노드를 가지고 거리 갱신
+        update_short(n)
         # 현재 위치에서 다음 노드로 가는 비용 저장
-        for node in graph[current]:
+        for node in graph[n]:
             heapq.heappush(q, (node[1], node[0]))
 
 
