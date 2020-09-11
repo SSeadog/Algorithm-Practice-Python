@@ -31,13 +31,19 @@ def dijstra(start):  # 다익스트라 구현
     distance[start] = 0
     # heap에 비용과 노드(start) 넣음
     heapq.heappush(heap, (distance[start], start))
+    # heap이 빌때까지 반복
     while heap:
+        # 힙에서 가장 거리가 짧은 노드 꺼내고 노드만 node에 저장
         node = heapq.heappop(heap)[1]
+        # 방문하지 않은 노드라면
         if not visited[node]:
+            # 연결된 노드 거리 비용 갱신
             for n in graph[node]:
                 if distance[n[0]] > n[1] + distance[node]:
                     distance[n[0]] = n[1] + distance[node]
+            # 방문 표시
             visited[node] = True
+            # 연결된 노드 갱신된 비용과 함께 heaq에 넣음
             for n in graph[node]:
                 heapq.heappush(heap, (distance[n[1]], n[0]))
 
@@ -56,4 +62,3 @@ for i, d in enumerate(distance):
 time = max(distance)
 
 print(cnt, time)
-print(distance)
