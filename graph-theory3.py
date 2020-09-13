@@ -18,12 +18,8 @@ time = [0] * (n+1)
 for i in range(1, n+1):
     node = []
     input_list = list(map(int, input().split()))
-    for index, li in enumerate(input_list):
-        if index == 0:
-            time[i] = li
-            continue
-        if li == -1:
-            break
+    time[i] = input_list[0]
+    for li in input_list[1:-1]:
         node.append(li)
     graph[i] = node
 
@@ -47,19 +43,25 @@ def topology_sort():
 
     # 큐가 빌때까지 반복
     while q:
+        # 큐에서 노드를 꺼내고
         node = q.popleft()
+        # 그래프 값을 순차탐색하며 node를 선수 강의로 포함한 경우 진입차수 -1
         for i in range(1, n+1):
             if node in graph[i]:
                 indegree[i] -= 1
+                # 진입 차수가 0이고 방문하지 않은 노드라면 큐에 넣고 방문 처리
                 if indegree[i] == 0 and visited[i] == False:
                     q.append(i)
                     visited[i] = True
+                    # 선행 노드들의 시간을 저장할 리스트 선언
                     pre_time = []
+                    # 선행 노드들의 시간을 하나씩 리스트에 넣음
                     for pre_node in graph[i]:
                         pre_time.append(time[pre_node])
+                    # 리스트 중 가장 큰 시간을 현재 노드의 시간에 더해줌
                     time[i] += max(pre_time)
-    print(visited)
 
 
 topology_sort()
-print(time)
+for t in time[1:]:
+    print(t)
