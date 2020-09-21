@@ -20,13 +20,19 @@ def solution(food_times, k):
     previous = 0
     length = len(food_times)
 
+    # 비교할 때 다음에 꺼낼 값에서 전의 값을 빼며 비교하는데, 꺼낼때마다 큐 안의 시간을 다 빼며 갱신하는 것보다 효율적임
     while k >= (q[0][0] - previous) * length:
         now = heapq.heappop(q)[0]
+        # 이번 사이클에서 전체 소요 시간을 total에 저장
         total = (now - previous) * length
+        # k만큼의 시간에서 total만큼 소요하므로 뺌
         k -= total
+        # 다음 사이클을 위해 현재 시간을 previous에 넣음
         previous = now
+        # 음식이 한개 다먹어졌으므로 length 갱신
         length -= 1
 
+    # 힙 구조를 가지고 있던 q를 인덱스 순으로 정렬
     result = sorted(q, key=lambda x: x[1])
     answer = result[k % length][1]
 
