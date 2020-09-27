@@ -26,7 +26,7 @@ def chk(new_lock):
 
 def solution():
     lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
-    key = [[0, 0, 0], [0, 0, 1], [0, 1, 0]]
+    key = [[0, 0, 0], [1, 0, 0], [0, 1, 1]]
 
     # lock을 3배의 크기로 선언하고 값 넣기
     new_lock = [[0] * (len(lock) * 3) for _ in range(len(lock) * 3)]
@@ -36,20 +36,26 @@ def solution():
 
     n = len(lock)
     m = len(key)
-    # key를 옮기며 new_lock에 더하고 확인하고 빼기
-    for x in range(1, n * 2):
-        for y in range(1, n * 2):
-            # new_lock에 key 더하기
-            for i in range(m):
-                for j in range(m):
-                    new_lock[x+i][y+j] += key[i][j]
-            # 체크
-            if chk(new_lock):
-                return True
-            # key 빼기
-            for i in range(m):
-                for j in range(m):
-                    new_lock[x+i][y+j] -= key[i][j]
+
+    # 90도씩 돌리기
+    for _ in range(4):
+        new_lock = numpy.rot90(new_lock, k=3, axes=(0, 1))
+
+        # key를 옮기며 new_lock에 더하고 확인하고 빼기
+        for x in range(1, n * 2):
+            for y in range(1, n * 2):
+                # new_lock에 key 더하기
+                for i in range(m):
+                    for j in range(m):
+                        new_lock[x+i][y+j] += key[i][j]
+                # 체크
+                if chk(new_lock):
+                    return True
+                # key 빼기
+                for i in range(m):
+                    for j in range(m):
+                        new_lock[x+i][y+j] -= key[i][j]
+    # 4회전 모두 확인하고 이 부분에 도달했다면, 키가 맞지 않는다는 의미이므로 False리턴
     return False
 
 
