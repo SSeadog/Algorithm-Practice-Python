@@ -1,5 +1,7 @@
 # 특정 거리의 도시 찾기
 
+# heap을 이용한 다익스트라로 구현
+
 import heapq
 import sys
 
