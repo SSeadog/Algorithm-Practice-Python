@@ -17,8 +17,8 @@ def process(w):  # 재귀적으로 부르기 위해 모든 과정을 한 함수�
         return ""
     u = ''
     v = ''
-    cnt_a = 0
-    cnt_b = 0
+    cnt_a = 0  # 왼쪽 괄호 개수
+    cnt_b = 0  # 오른쪽 괄호 개수
     for i in w:
         u += i
         if i == '(':
@@ -28,8 +28,7 @@ def process(w):  # 재귀적으로 부르기 위해 모든 과정을 한 함수�
         if cnt_a == cnt_b:
             break
     v = w[cnt_a + cnt_b:]
-    print("u", u, "v", v)
-    if chk_right(u):
+    if is_right(u):
         # 3-1
         u += process(v)
         return u
@@ -38,8 +37,6 @@ def process(w):  # 재귀적으로 부르기 위해 모든 과정을 한 함수�
         new = '('
         new += process(v)
         new += ')'
-        print("u", u, "v", v)
-        print("u", u)
         for j in u[1:-1]:  # [1:-1]은 1인덱스부터 마지막 인덱스 앞까지만 반복
             if j == '(':
                 new += ')'
