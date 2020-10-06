@@ -1,5 +1,10 @@
 # 연산자 끼워 넣기
 
+
+# 재귀 함수 호출할 때 변수들이 공유되는 거 같음. 다른 방식으로 해야 할듯
+# dfs 호출 방식을 바꿔서 해결
+# 나중에 또 봐야 할듯
+
 # n 입력
 n = int(input())
 
@@ -15,19 +20,18 @@ result = []
 
 def dfs(op_cnt, value, operation):
     if operation == 0:  # 더하기
-        op_cnt[0] += 1
         value += a[sum(op_cnt)]
     elif operation == 1:  # 빼기
-        op_cnt[1] += 1
         value -= a[sum(op_cnt)]
     elif operation == 2:  # 곱하기
-        op_cnt[2] += 1
         value *= a[sum(op_cnt)]
-    else:  # 나누기, c++ 방식으로 나눗셈이 제대로 안댐
-        op_cnt[3] += 1
+    elif operation == 3:  # 나누기, c++ 방식으로 나눗셈이 제대로 안댐
         cur = a[sum(op_cnt)]
-        value = int(value/cur)
-        print(value)
+        if value < 0:
+            value = abs(value)//cur
+            value *= -1
+        else:
+            value = value//cur
 
     # 연산을 다 했다면 그 결과 result에 저장
     if sum(op) == sum(op_cnt):
@@ -35,23 +39,28 @@ def dfs(op_cnt, value, operation):
     # 다 하지 않았다면 op_cnt 각항 최대를 넘지 않는 선에서 재귀 호출
     else:
         if op_cnt[0] < op[0]:
+            op_cnt[0] += 1
             dfs(op_cnt, value, 0)
+            op_cnt[0] -= 1
         if op_cnt[1] < op[1]:
+            op_cnt[1] += 1
             dfs(op_cnt, value, 1)
+            op_cnt[1] -= 1
         if op_cnt[2] < op[2]:
+            op_cnt[2] += 1
             dfs(op_cnt, value, 2)
+            op_cnt[2] -= 1
         if op_cnt[3] < op[3]:
+            op_cnt[3] += 1
             dfs(op_cnt, value, 3)
+            op_cnt[3] -= 1
 
 
 for i in range(4):
     if op[i] > 0:
-        dfs([0, 0, 0, 0], a[0], i)
+        op_cnt = [0, 0, 0, 0]
+        op_cnt[i] += 1
+        dfs(op_cnt, a[0], i)
 
 print(max(result))
 print(min(result))
-# print((((((1-2)//3)+4)+5)*6))
-# print(-(1//3))
-# aa = -1
-# bb = 3
-# print(abs(aa)//bb)
