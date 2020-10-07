@@ -39,8 +39,10 @@ def dfs(op_cnt, value, operation):
     # 다 하지 않았다면 op_cnt 각항 최대를 넘지 않는 선에서 재귀 호출
     else:
         if op_cnt[0] < op[0]:
+            # 재귀호출하기 전, 더하기 횟수 증가를 위해
             op_cnt[0] += 1
             dfs(op_cnt, value, 0)
+            # 더하기 횟수가 더해진 채로 다음 함수가 호출되었고, 아래 조건문에서 적용되면 안되기 때문에 다시 빼줌
             op_cnt[0] -= 1
         if op_cnt[1] < op[1]:
             op_cnt[1] += 1
