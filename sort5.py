@@ -1,5 +1,14 @@
 # 안테나
 
+# n 입력
+n = int(input())
+
+# 위치 입력
+place = list(map(int, input().split()))
+
+place.sort()
+print(place[(n - 1)//2])
+
 
 # # 왜 안되는지 모르겠음
 # # n 입력
