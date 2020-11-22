@@ -26,13 +26,14 @@ while start <= end:
     for len in length:
         if len > mid:
             s += len - mid
-    # 총합이 M보다 낮으면 더 자르기 위해 왼쪽 부분 탐색
+    # 총합이 m보다 낮으면 더 자르기 위해 왼쪽 부분 탐색
     if s < m:
         end = mid - 1
     # 총합이 m보다 높으면 덜 자르기 위해 오른쪽 부분 탐색
     else:
         start = mid + 1
         # h 갱신 방법이 왜 여기서 이뤄져야 할지 잘 모르겠음
+        # h의 최댓값을 구하기 때문에
         h = mid
 
 print(h)

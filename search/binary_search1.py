@@ -2,7 +2,6 @@ import math
 
 # 부품 찾기
 
-
 # 계수 정렬로 구현
 
 # n 입력
@@ -29,8 +28,7 @@ for request in requests:
     else:
         print("no", end=" ")
 
-# # 이진 탐색으로 구현
-# # 이진 탐색 함수 구현
+# # 이진 탐색 함수 구현(반복문)
 # def binary_search(array, find, start, end):
 #     if start > end:
 #         return "no"
